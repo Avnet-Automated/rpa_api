@@ -6,8 +6,7 @@ import database.db_connect as db_conn
 def main():
 
     # declare logging
-    global logger
-    logger = logging.getLogger('rpa_api')
+    logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
 
     # load from .env if exists

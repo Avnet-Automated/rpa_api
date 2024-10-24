@@ -1,6 +1,9 @@
 import pyodbc
+import logging
 
 def getConnection(tier, database):
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
     if tier == 'RMR':
         server = 'CIS2090VMSQL' 
         username = 'SCDevApp1' 
@@ -26,6 +29,8 @@ def getConnection(tier, database):
     return conn
 
 def getDbConnection(tier, server, database, user, password):
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
     logger.info("Connecting to database tier: " + tier)
 
     try:
