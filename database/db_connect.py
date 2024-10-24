@@ -1,5 +1,4 @@
 import pyodbc
-import logging
 
 def getConnection(tier, database):
     if tier == 'RMR':
@@ -19,6 +18,18 @@ def getConnection(tier, database):
     
     try:
         conn = pyodbc.connect('Driver={SQL Server};Server='+server+';Database='+database+';UID='+username+';PWD='+ password+';', autocommit=True)
+    except Exception as e:
+        logger.error({'error': server + ' Database Connection failed', 'message': e.args})
+        print("Error: %s" %e)
+        raise Exception(server + ' DB Connection failed.')
+    
+    return conn
+
+def getDbConnection(tier, server, database, user, password):
+    logger.info("Connecting to database tier: " + tier)
+
+    try:
+        conn = pyodbc.connect('Driver={SQL Server};Server='+server+';Database='+database+';UID='+user+';PWD='+ password+';', autocommit=True)
     except Exception as e:
         logger.error({'error': server + ' Database Connection failed', 'message': e.args})
         print("Error: %s" %e)
